@@ -1,0 +1,62 @@
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+    background-color: hsl(45, 29%, 97%);
+    padding: 1rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 3rem;
+}
+
+header {
+    grid-column: span 12;
+    padding: 2rem 4rem;
+    align-items: center;
+}
+
+header h1 {
+    grid-column: span 6;
+}
+
+header nav {
+    grid-column: span 6;
+    justify-self: end;
+}
+
+header nav a {
+    margin-inline-start: 1rem;
+}
+
+main {
+    grid-column: 2 / span 10;
+    margin-inline: auto;
+    padding: 2rem;
+}
+
+.welcome {
+    grid-column: span 12;
+}
+
+.welcome > h3 {
+    font-size: 2rem !important;
+}
+
+main h2 {
+    grid-column: span 12;
+    text-align: center;
+    padding-top: 2rem;
+}
+
+.card {
+    grid-column: span 4;
+}
+
+.card h3 {
+    text-align: center;
+}
