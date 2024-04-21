@@ -1,52 +1,67 @@
 package main
 
 import (
-	"database/sql"
 	"html/template"
-	"log"
+	"io"
 	"net/http"
 
-	_ "github.com/go-sql-driver/mysql"
+	"github.com/labstack/echo/v4"
 )
 
-func main() {
-	serverPort := ":8080"
-	db, err := sql.Open("mysql", "root:root@tcp(db:3306)/db")
+type Template struct {
+	templates *template.Template
+}
+
+func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
+	err := t.templates.ExecuteTemplate(w, name, data)
 	if err != nil {
-		log.Fatal(err)
+		c.Logger().Error(err)
+		return c.String(http.StatusInternalServerError, err.Error())
 	}
-	defer db.Close()
+	return nil
+}
 
-	rootHandler := func(w http.ResponseWriter, r *http.Request) {
-		tmpl := template.Must(template.ParseFiles("src/index.html"))
-		tmpl.Execute(w, nil)
+func newTemplate() *Template {
+	t := template.Must(template.ParseGlob("src/*.html"))
+
+	return &Template{
+		templates: t,
 	}
+}
 
-	secondRouteHandler := func(w http.ResponseWriter, r *http.Request) {
-		tmpl := template.Must(template.ParseFiles("src/templates/page-2.html"))
-		tmpl.Execute(w, nil)
+type Data struct {
+	Data Page
+}
+
+func newData(data Page) Data {
+	return Data{
+		Data: data,
 	}
+}
 
-	pingHandler := func(w http.ResponseWriter, r *http.Request) {
-		err = db.Ping()
-		if err != nil {
-			log.Fatal(err)
-		}
-		log.Println("pong")
-	}
+func main() {
+	router := echo.New()
+	router.Renderer = newTemplate()
+	router.Static("/src", "src")
 
-	// styling
-	styleFileHandler := http.FileServer(http.Dir("src/style"))
-	http.Handle("/src/style/", http.StripPrefix("/src/style", styleFileHandler))
-	// js if needed
-	jsFileHandler := http.FileServer(http.Dir("src/js"))
-	http.Handle("src/js.", http.StripPrefix("/src/js", jsFileHandler))
+	div := NewPageElementWithContent(
+		"div",
+		"div is here",
+	)
+	section := NewPageElementWithChildren(
+		"section",
+		[]PageElement{div},
+	)
+	page := NewPage(
+		[]PageElement{
+			section,
+		},
+	)
+	data := newData(page)
 
-	// routes
-	http.HandleFunc("/", rootHandler)
-	http.HandleFunc("/page-2", secondRouteHandler)
-	http.HandleFunc("/ping", pingHandler)
+	router.GET("/", func(c echo.Context) error {
+		return c.Render(200, "index", data)
+	})
 
-	// serving the router
-	log.Fatal(http.ListenAndServe(serverPort, nil))
+	router.Logger.Fatal(router.Start(":8080"))
 }
