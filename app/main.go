@@ -22,7 +22,7 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 }
 
 func newTemplate() *Template {
-	t := template.Must(template.ParseGlob("src/*.html"))
+	t := template.Must(template.ParseGlob("src/templates/*.html"))
 
 	return &Template{
 		templates: t,
@@ -44,14 +44,10 @@ func main() {
 	router.Renderer = newTemplate()
 	router.Static("/src", "src")
 
-	div := NewPageElementWithContent(
-		"div",
-		"div is here",
-	)
-	section := NewPageElementWithChildren(
-		"section",
-		[]PageElement{div},
-	)
+	p := createParagraph(paragraphConfig{Body: "Hello, World!", ClassName: "red"})
+
+	section := createSection(sectionConfig{Children: []PageElement{p}})
+
 	page := NewPage(
 		[]PageElement{
 			section,

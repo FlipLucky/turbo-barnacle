@@ -1,0 +1,188 @@
+<!-- wrappers -->
+
+{{ define "header" }}
+<header>
+    {{ if .ChildElements}}
+        {{ range .ChildElements }}
+            {{ template "blockmapper" . }}
+        {{ end }}
+    {{ end }}
+</header>
+{{ end }}
+
+{{ define "footer" }}
+<footer>
+    {{ if .ChildElements}}
+        {{ range .ChildElements }}
+            {{ template "blockmapper" . }}
+        {{ end }}
+    {{ end }}
+</footer>
+{{ end }}
+
+{{ define "main" }}
+<main>
+    {{ if .ChildElements}}
+        {{ range .ChildElements }}
+            {{ template "blockmapper" . }}
+        {{ end }}
+    {{ end }}
+</main>
+{{ end }}
+
+{{ define "nav" }}
+<nav>
+    {{ if .ChildElements}}
+        {{ range .ChildElements }}
+            {{ template "blockmapper" . }}
+        {{ end }}
+    {{ end }}
+</nav>
+{{ end }}
+
+{{ define "section" }}
+<section>
+    {{ if .ChildElements}}
+        {{ range .ChildElements }}
+            {{ template "blockmapper" . }}
+        {{ end }}
+    {{ end }}
+</section>
+{{ end }}
+
+{{ define "div" }}
+<div>
+    {{ if .ChildElements}}
+        {{ range .ChildElements }}
+            {{ template "blockmapper" . }}
+        {{ end }}
+    {{ end }}
+</div>
+{{ end }}
+
+<!-- content -->
+
+{{ define "p" }}
+<p 
+    {{ if( .GetClassName ) }}
+    class = "{{ .GetClassName }}"
+    {{ end }}
+>
+    {{ .Body }}
+</p>
+{{ end }}
+
+{{ define "h1" }}
+<h1>
+    {{ .Body }}
+</h1>
+{{ end }}
+
+{{ define "h2" }}
+<h2>
+    {{ .Body }}
+</h2>
+{{ end }}
+
+{{ define "h3" }}
+<h3>
+    {{ .Body }}
+</h3>
+{{ end }}
+
+{{ define "h4" }}
+<h4>
+    {{ .Body }}
+</h4>
+{{ end }}
+
+{{ define "h5" }}
+<h5>
+    {{ .Body }}
+</h5>
+{{ end }}
+
+{{ define "h6" }}
+<h6>
+    {{ .Body }}
+</h6>
+{{ end }}
+
+{{ define "ul" }}
+<ul>
+    {{ if .ChildElements }}
+        {{ range .ChildElements }}
+            {{ template "blockmapper" . }}
+        {{ end }}
+    {{ end }}
+</ul>
+{{ end }}
+
+{{ define "ol" }}
+<ol>
+    {{ if .ChildElements }}
+        {{ range .ChildElements }}
+            {{ template "blockmapper" . }}
+        {{ end }}
+    {{ end }}
+</ol>
+{{ end }}
+
+{{ define "li" }}
+<li>
+    {{ .Body }}
+</li>
+{{ end }}
+
+{{ define "table" }}
+<table>
+    {{ if .ChildElements }}
+        {{ range .ChildElements }}
+            {{ template "blockmapper" . }}
+        {{ end }}
+    {{ end }}
+</table>
+{{ end }}
+
+{{ define "thead" }}
+<thead>
+    {{ if .ChildElements }}
+        {{ range .ChildElements }}
+            {{ template "blockmapper" . }}
+        {{ end }}
+    {{ end }}
+</thead>
+{{ end }}
+
+{{ define "tbody" }}
+<tbody>
+    {{ if .ChildElements }}
+        {{ range .ChildElements }}
+            {{ template "blockmapper" . }}
+        {{ end }}
+    {{ end }}
+</tbody>
+{{ end }}
+
+{{ define "tr" }}
+<tr>
+    {{ if .ChildElements }}
+        {{ range .ChildElements }}
+            {{ template "blockmapper" . }}
+        {{ end }}
+    {{ end }}
+</tr>
+{{ end }}
+
+{{ define "th" }}
+<th>
+    {{ .Body }}
+</th>
+{{ end }}
+
+{{ define "td" }}
+<td>
+    {{ .Body }}
+</td>
+{{ end }}
+

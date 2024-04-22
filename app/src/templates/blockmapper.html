@@ -1,0 +1,10 @@
+{{ define "blockmapper"}}
+    {{ if eq .GetType "section" }}
+        {{ template "section" . }}
+    {{ else if eq .GetType "div" }}
+        {{ template "div" . }}
+    {{ else if eq .GetType "p" }}	
+        {{ template "p" . }}
+    {{ end }}
+    
+{{ end }}
