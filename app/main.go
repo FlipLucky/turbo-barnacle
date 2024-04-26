@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"io"
 	"net/http"
@@ -45,8 +46,23 @@ func main() {
 	router.Static("/src", "src")
 
 	p := createParagraph(paragraphConfig{Body: "Hello, World!", ClassName: "red"})
+	p2 := TextElement{
+		ElementType: Paragraph,
+		Body:        "Hello Constant World!!",
+	}
+	row, err := NewLayoutElement(Row)
+	if err != nil {
+		fmt.Printf("Error creating layout element: %s", err)
+	}
 
-	section := createSection(sectionConfig{Children: []PageElement{p}})
+	col, err := NewLayoutElement(Col)
+	if err != nil {
+		fmt.Printf("Error creating layout element: %s", err)
+	}
+	col.appendChild(p2)
+	row.appendChild(col)
+
+	section := createSection(sectionConfig{Children: []PageElement{p, row}})
 
 	page := NewPage(
 		[]PageElement{
