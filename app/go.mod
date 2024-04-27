@@ -1,4 +1,4 @@
-module github.com/FlipLucky/htmx-pagebuilder
+module github.com/FlipLucky/turbo-barnacle
 
 go 1.22.2
 

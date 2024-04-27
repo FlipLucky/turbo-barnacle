@@ -2,78 +2,66 @@ package main
 
 import (
 	"fmt"
-	"html/template"
-	"io"
-	"net/http"
 
+	"github.com/FlipLucky/turbo-barnacle/internal/elements"
+	"github.com/FlipLucky/turbo-barnacle/internal/elements/routes"
 	"github.com/labstack/echo/v4"
 )
 
-type Template struct {
-	templates *template.Template
-}
-
-func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-	err := t.templates.ExecuteTemplate(w, name, data)
-	if err != nil {
-		c.Logger().Error(err)
-		return c.String(http.StatusInternalServerError, err.Error())
-	}
-	return nil
-}
-
-func newTemplate() *Template {
-	t := template.Must(template.ParseGlob("src/templates/*.html"))
-
-	return &Template{
-		templates: t,
-	}
-}
-
 type Data struct {
-	Data Page
+	Data elements.Page
 }
 
-func newData(data Page) Data {
+func newData(data elements.Page) Data {
 	return Data{
 		Data: data,
 	}
 }
 
 func main() {
-	router := echo.New()
-	router.Renderer = newTemplate()
-	router.Static("/src", "src")
+	r := routes.NewRouter()
+	r.Static("/src", "src")
+	// create page --> create append child method
+	// add section
+	// add columns
+	// fill fields
+	// render
 
-	p := createParagraph(paragraphConfig{Body: "Hello, World!", ClassName: "red"})
-	p2 := TextElement{
-		ElementType: Paragraph,
+	section, err := elements.NewLayoutElement(elements.Section)
+	if err != nil {
+		fmt.Printf("Error creating layout element: %s", err)
+	}
+
+	p2 := elements.TextElement{
+		ElementType: elements.Paragraph,
 		Body:        "Hello Constant World!!",
+		ClassName:   "red",
 	}
-	row, err := NewLayoutElement(Row)
+
+	row, err := elements.NewLayoutElement(elements.Row)
 	if err != nil {
 		fmt.Printf("Error creating layout element: %s", err)
 	}
 
-	col, err := NewLayoutElement(Col)
+	col, err := elements.NewLayoutElement(elements.Col)
 	if err != nil {
 		fmt.Printf("Error creating layout element: %s", err)
 	}
-	col.appendChild(p2)
-	row.appendChild(col)
 
-	section := createSection(sectionConfig{Children: []PageElement{p, row}})
+	col.AppendChild(p2)
+	row.AppendChild(col)
+	section.AppendChild(row)
 
-	page := NewPage(
-		[]PageElement{
+	page := elements.NewPage(
+		[]elements.PageElement{
 			section,
 		},
 	)
 	data := newData(page)
 
-	router.GET("/", func(c echo.Context) error {
+	r.GET("/", func(c echo.Context) error {
 		return c.Render(200, "index", data)
 	})
 
-	router.Logger.Fatal(router.Start(":8080"))
+	r.Logger.Fatal(r.Start(":8080"))
 }
