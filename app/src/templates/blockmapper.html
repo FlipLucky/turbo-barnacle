@@ -9,6 +9,10 @@
 {{ template "row" . }}
 {{ else if eq .GetType "col"}}
 {{ template "col" . }}
+{{ else if eq .GetType "image" }}
+{{ template "image" . }}
+{{ else }}
+  <h4>Type {{ .GetType }} not yet implemented</h4>
 {{ end }}
 
 

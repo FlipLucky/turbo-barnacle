@@ -4,8 +4,7 @@ import (
 	"fmt"
 
 	"github.com/FlipLucky/turbo-barnacle/internal/elements"
-	"github.com/FlipLucky/turbo-barnacle/internal/elements/routes"
-	"github.com/labstack/echo/v4"
+	"github.com/FlipLucky/turbo-barnacle/internal/routes"
 )
 
 type Data struct {
@@ -20,12 +19,7 @@ func newData(data elements.Page) Data {
 
 func main() {
 	r := routes.NewRouter()
-	r.Static("/src", "src")
-	// create page --> create append child method
-	// add section
-	// add columns
-	// fill fields
-	// render
+	r.Static("/assets", "src")
 
 	section, err := elements.NewLayoutElement(elements.Section)
 	if err != nil {
@@ -48,20 +42,31 @@ func main() {
 		fmt.Printf("Error creating layout element: %s", err)
 	}
 
+	col2, err := elements.NewLayoutElement(elements.Col)
+	if err != nil {
+		fmt.Printf("Error creating layout element: %s", err)
+	}
+
+	img := elements.NewImageElement(
+		"/assets/images/synthwave.jpg",
+		"synthwave",
+	)
+
 	col.AppendChild(p2)
+	col2.AppendChild(img)
 	row.AppendChild(col)
+	row.AppendChild(col2)
 	section.AppendChild(row)
 
 	page := elements.NewPage(
+		"Homepage",
+		"/",
+		"index",
 		[]elements.PageElement{
 			section,
 		},
 	)
-	data := newData(page)
-
-	r.GET("/", func(c echo.Context) error {
-		return c.Render(200, "index", data)
-	})
+	routes.NewPageRoute(r, page)
 
 	r.Logger.Fatal(r.Start(":8080"))
 }

@@ -85,3 +85,7 @@
     {{ end }}
     {{ end }}
 {{ end}}
+
+{{ define "image"}}
+<img src="{{ .GetAssetUrl }}" alt="{{ .GetAltText }}">
+{{ end }}

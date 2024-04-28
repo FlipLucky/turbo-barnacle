@@ -7,12 +7,28 @@ type ImageElement struct {
 	AltText   string
 }
 
-func (i ImageElement) GetType() string {
-	return i.Type
+func NewImageElement(assetUrl, altText string) ImageElement {
+	return ImageElement{
+		Type:     "image",
+		AssetUrl: assetUrl,
+		AltText:  altText,
+	}
+}
+
+func (i ImageElement) GetAssetUrl() string {
+	return i.AssetUrl
+}
+
+func (i ImageElement) GetAltText() string {
+	return i.AltText
 }
 
 func (i ImageElement) GetClassName() string {
 	return i.ClassName
+}
+
+func (i ImageElement) GetType() string {
+	return i.Type
 }
 
 type VideoElement struct {
