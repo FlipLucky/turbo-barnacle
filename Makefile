@@ -3,3 +3,6 @@ build:
 
 run: 
 	go run bin/app
+
+dev:	
+	docker compose up -d && docker compose logs -f app

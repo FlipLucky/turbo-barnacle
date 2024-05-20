@@ -24,3 +24,95 @@ main {
 .red {
     color: red;
 }
+
+
+:root {
+  /* Primary Color: Electric Purple */
+  --primary-color: #8A2BE2;
+  --primary-contrast: #FF1493;
+
+  /* Secondary Color: Cyber Teal */
+  --secondary-color: #00CED1;
+  --secondary-contrast: #FF4500;
+
+  /* Accent Color: Neon Pink */
+  --accent-color: #FF6EC7;
+  --accent-contrast: #00FF7F;
+
+  /* Background Colors */
+  --primary-bg: #1A1A1A; /* Dark background */
+  --secondary-bg: #444444; /* Slightly lighter background */
+  --tertiary-bg: #888888; /* Subtle background */
+
+  /* Text Light Color */
+  --text-light: #EDEDED;
+
+  /* Border Color */
+  --border-color: #CCCCCC;
+}
+
+/* Apply colors to specific elements */
+body {
+  background-color: var(--primary-bg);
+  color: var(--text-light);
+}
+
+h1, h2, h3 {
+  color: var(--primary-color);
+}
+
+a {
+  color: var(--accent-color);
+}
+
+/* Example usage for background and border */
+.header {
+  background-color: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+}
+
+
+:root {
+  /* Matrix Green (Primary Color) */
+  --primary-color: #149414;
+  --primary-contrast: #0e6b0e;
+
+  /* Cyber Teal (Secondary Color) */
+  --secondary-color: #649568;
+  --secondary-contrast: #9ccc9c;
+
+  /* Neon Blue (Accent Color) */
+  --accent-color: #05C3DD;
+  --accent-contrast: #1E22AA;
+
+  /* Background Colors */
+  --dark-bg: #1A1A1A; /* Dark matrix background */
+  --teal-bg: #444444; /* Subtle cyber teal background */
+  --blue-bg: #888888; /* Mysterious neon blue background */
+
+  /* Text Light Color */
+  --text-light: #EDEDED;
+
+  /* Border Color */
+  --border-color: #CCCCCC;
+}
+
+/* Apply colors to specific elements */
+body {
+  background-color: var(--dark-bg);
+  color: var(--text-light);
+}
+
+h1, h2, h3 {
+  color: var(--primary-color);
+}
+
+a {
+  color: var(--accent-color);
+}
+
+/* Example usage for background and border */
+.header {
+  background-color: var(--teal-bg);
+  border: 1px solid var(--border-color);
+}

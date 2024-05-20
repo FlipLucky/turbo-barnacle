@@ -6,7 +6,7 @@ import (
 
 type PageRoute interface {
 	GetSlug() string
-	GetElements() []elements.PageElement
+	GetElements() []elements.PageElementInterface
 	GetTemplate() string
 	GetTitle() string
 }

@@ -4,7 +4,7 @@ type Page struct {
 	Title    string
 	Slug     string
 	Template string
-	Elements []PageElement
+	Elements []PageElementInterface
 }
 
 func (p Page) GetTitle() string {
@@ -19,11 +19,11 @@ func (p Page) GetTemplate() string {
 	return p.Template
 }
 
-func (p Page) GetElements() []PageElement {
+func (p Page) GetElements() []PageElementInterface {
 	return p.Elements
 }
 
-func NewPage(title, slug, template string, pageElements []PageElement) Page {
+func NewPage(title, slug, template string, pageElements []PageElementInterface) Page {
 	return Page{
 		Title:    title,
 		Slug:     slug,
@@ -32,6 +32,6 @@ func NewPage(title, slug, template string, pageElements []PageElement) Page {
 	}
 }
 
-func (p *Page) AppendElement(element PageElement) {
+func (p *Page) AppendElement(element PageElementInterface) {
 	p.Elements = append(p.Elements, element)
 }

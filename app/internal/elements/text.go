@@ -16,6 +16,7 @@ type TextElement struct {
 	ElementType TextElementType
 	Body        string
 	ClassName   string
+	ElementUUID ElementUUID
 }
 
 func (t TextElement) GetType() string {
@@ -24,4 +25,15 @@ func (t TextElement) GetType() string {
 
 func (t TextElement) GetClassName() string {
 	return t.ClassName
+}
+
+func (t TextElement) GetElementUUID() ElementUUID {
+	return t.ElementUUID
+}
+
+func CreateTextElement(t TextElementType) *TextElement {
+	e := new(TextElement)
+	e.ElementType = t
+	e.ElementUUID = createElementUUID()
+	return e
 }

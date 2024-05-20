@@ -24,11 +24,12 @@
 
 {{ define "p" }}
 <p 
-    {{ if( .GetClassName ) }}
-    class = "{{ .GetClassName }}"
+    {{ if( .GetClassNames ) }}
+    class = "{{ .GetClassNames }}"
     {{ end }}
+    id="{{ .GetElementUUID }}"
 >
-    {{ .Body }}
+    {{ .GetContent }}
 </p>
 {{ end }}
 
