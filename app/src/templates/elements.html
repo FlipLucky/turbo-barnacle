@@ -21,65 +21,24 @@
 {{ end }}
 
 <!-- content -->
-
-{{ define "p" }}
+{{ define "bodytext" }}
 <p 
     {{ if( .GetClassNames ) }}
     class = "{{ .GetClassNames }}"
     {{ end }}
     id="{{ .GetElementUUID }}"
 >
-    {{ .GetContent }}
+    {{ .GetContent}} 
 </p>
 {{ end }}
 
-{{ define "h1" }}
-<h1>
-    {{ .Body }}
-</h1>
-{{ end }}
-
-{{ define "h2" }}
-<h2>
-    {{ .Body }}
-</h2>
-{{ end }}
-
-{{ define "h3" }}
-<h3>
-    {{ .Body }}
-</h3>
-{{ end }}
-
-{{ define "h4" }}
-<h4>
-    {{ .Body }}
-</h4>
-{{ end }}
-
-{{ define "h5" }}
-<h5>
-    {{ .Body }}
-</h5>
-{{ end }}
-
-{{ define "h6" }}
-<h6>
-    {{ .Body }}
-</h6>
-{{ end }}
-
-{{ define "row" }}
-<div class="row">
-    {{ if .ChildElements }}
-    {{ range .ChildElements }}
-        {{ template "blockmapper" . }}
+{{ define "textblock" }}
+<div 
+    {{ if( .GetClassNames ) }}
+    class = "{{ .GetClassNames }}"
     {{ end }}
-    {{ end }}
-{{ end}}
-
-{{ define "col" }}
-<div class="col">
+    id="{{ .GetElementUUID }}"
+>
     {{ if .ChildElements }}
     {{ range .ChildElements }}
         {{ template "blockmapper" . }}

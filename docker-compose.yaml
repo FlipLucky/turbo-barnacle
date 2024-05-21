@@ -18,5 +18,12 @@ services:
       - .env
 
 
-  theme: 
-    image: node:latest
+  sass: 
+    build:
+      context: ./scss
+      dockerfile: ../docker/sass/Dockerfile
+    volumes: 
+      - ./scss:/sass
+      - ./app/src/style:/css
+    command: ["--watch", "--no-source-map", "-s","compressed", "/sass:/css"]
+

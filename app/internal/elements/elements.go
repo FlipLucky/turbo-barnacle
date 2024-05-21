@@ -17,6 +17,7 @@ type PageElementInterface interface {
 	GetClassNames() string
 	GetElementUUID() ElementUUID
 	GetParentUUID() ElementUUID
+	SetParentUUID(ElementUUID)
 	GetAttributes() map[string]string
 }
 
@@ -40,62 +41,13 @@ func (e PageElement) GetElementUUID() ElementUUID {
 func (e PageElement) GetParentUUID() ElementUUID {
 	return e.ParentUUID
 }
+
+func (e *PageElement) SetParentUUID(uuid ElementUUID) {
+	e.ParentUUID = uuid
+}
+
 func (e PageElement) GetAttributes() map[string]string {
 	return e.Attributes
-}
-
-type StructureElementInterface interface {
-	PageElement
-	GetChildElements() []PageElement
-}
-
-type StructureElement struct {
-	PageElement   PageElement
-	ChildElements []PageElementInterface
-}
-
-func (e StructureElement) GetChildElements() []PageElementInterface {
-	return e.ChildElements
-}
-
-type BlockElementInterface interface {
-	PageElement
-	GetChildElements() []PageElement
-}
-
-type BlockElement struct {
-	PageElement
-	ChildElements []PageElementInterface
-}
-
-func (e BlockElement) GetChildElements() []PageElementInterface {
-	return e.ChildElements
-}
-
-type ContentElementInterface interface {
-	PageElement
-	GetContent() string
-}
-
-type ContentElement struct {
-	PageElement
-	Content string
-}
-
-func (e ContentElement) GetContent() string {
-	return e.Content
-}
-
-func CreateContentElement() ContentElement {
-	return ContentElement{
-		PageElement: PageElement{
-			Type:        "p",
-			ClassNames:  []string{"red"},
-			ElementUUID: createElementUUID(),
-			Attributes:  map[string]string{},
-		},
-		Content: "Henk",
-	}
 }
 
 // type ContentElementCollection struct {
