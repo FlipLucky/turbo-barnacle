@@ -1,7 +1,6 @@
 package routes
 
 import (
-	"fmt"
 	"html/template"
 	"io"
 	"net/http"
@@ -16,7 +15,6 @@ func NewRouter() *echo.Echo {
 }
 
 func NewPageRoute(r *echo.Echo, p PageRoute) {
-	fmt.Printf("slug: %s", p.GetTemplate())
 	r.GET(p.GetSlug(), func(c echo.Context) error {
 		return c.Render(http.StatusOK, p.GetTemplate(), p)
 	})

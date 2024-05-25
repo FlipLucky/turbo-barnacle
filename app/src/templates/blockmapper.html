@@ -1,11 +1,22 @@
 {{ define "blockmapper"}}
 <!-- block -->
+
 {{ if eq .GetType "textblock"}}
 {{ template "textblock" .}}
+
 <!-- content -->
+
 {{ else if eq .GetType "bodytext"}}
 {{ template "bodytext" .}}
+
+{{ else if eq .GetType "subheadertext"}}
+{{ template "subheadertext" .}}
+
+{{ else if eq .GetType "headertext"}}
+{{ template "headertext" .}}
+
 <!-- default -->
+
 {{ else }}
   <h4>Type {{ .GetType }} not yet implemented</h4>
 {{ end }}

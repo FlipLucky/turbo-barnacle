@@ -1,51 +1,53 @@
-<!-- wrappers -->
+<!-- structure -->
 
-{{ define "section" }}
-<section>
-    {{ if .ChildElements}}
+<!-- block-->
+
+{{ define "textblock" }}
+<div 
+    {{ if( .GetClassNames ) }} 
+        class="{{ .GetClassNames }}" 
+    {{ end }} 
+    id="{{ .GetElementUUID }}"
+>
+    {{ if .ChildElements }}
         {{ range .ChildElements }}
-            {{ template "blockmapper" . }}
-        {{ end }}
+        {{ template "blockmapper" . }}
     {{ end }}
-</section>
-{{ end }}
-
-{{ define "div" }}
-<div>
-    {{ if .ChildElements}}
-        {{ range .ChildElements }}
-            {{ template "blockmapper" . }}
-        {{ end }}
     {{ end }}
 </div>
 {{ end }}
 
-<!-- content -->
-{{ define "bodytext" }}
-<p 
-    {{ if( .GetClassNames ) }}
-    class = "{{ .GetClassNames }}"
-    {{ end }}
+
+{{ define "headertext" }}
+<h2 
+    {{ if( .GetClassNames ) }} 
+        class="{{ .GetClassNames }}" 
+    {{ end }} 
     id="{{ .GetElementUUID }}"
 >
-    {{ .GetContent}} 
-</p>
+    {{ .GetContent}}
+</h2>
 {{ end }}
 
-{{ define "textblock" }}
-<div 
-    {{ if( .GetClassNames ) }}
-    class = "{{ .GetClassNames }}"
-    {{ end }}
+{{ define "subheadertext" }}
+<h4 
+    {{ if( .GetClassNames ) }} 
+        class="{{ .GetClassNames }}" 
+    {{ end }} 
     id="{{ .GetElementUUID }}"
 >
-    {{ if .ChildElements }}
-    {{ range .ChildElements }}
-        {{ template "blockmapper" . }}
-    {{ end }}
-    {{ end }}
-{{ end}}
+    {{ .GetContent}}
+</h4>
+{{end}}
 
-{{ define "image"}}
-<img src="{{ .GetAssetUrl }}" alt="{{ .GetAltText }}">
+{{ define "bodytext" }}
+<p 
+    {{ if( .GetClassNames ) }} 
+        class="{{ .GetClassNames }}" 
+    {{ end }} 
+    id="{{ .GetElementUUID }}"
+>
+    {{ .GetContent}}
+</p>
+
 {{ end }}
