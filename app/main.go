@@ -12,30 +12,14 @@ func main() {
 	r := routes.NewRouter()
 	r.Static("/assets", "src")
 
-	db, err := db.OpenDb()
+	database, err := db.OpenDb()
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer db.Close()
-	err = db.TestConnection()
+	defer database.Close()
+	err = database.TestConnection()
 	if err != nil {
 		log.Fatal(err)
-	}
-
-	results, err := db.Query("SELECT * FROM pages")
-	if err != nil {
-		log.Fatal(err)
-	}
-	pageCollection := []elements.Page{}
-
-	for results.Next() {
-		var page elements.Page
-
-		err = results.Scan(&page.Id, &page.Title, &page.Slug, &page.Template)
-		if err != nil {
-			log.Fatal(err)
-		}
-		pageCollection = append(pageCollection, page)
 	}
 
 	bodyText := elements.CreateContentElement(elements.BodyText)
@@ -61,6 +45,7 @@ func main() {
 		[]elements.PageElementInterface{tb},
 	)
 
+	pageCollection, err := db.GetPages(database)
 	for _, page = range pageCollection {
 		routes.NewPageRoute(r, page)
 	}
