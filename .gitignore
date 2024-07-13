@@ -1,3 +1,4 @@
 .env
+/data/
 /app/src/images/
 /theme/node_modules/
