@@ -1,6 +1,7 @@
 package elements
 
 type Page struct {
+	Id       int
 	Title    string
 	Slug     string
 	Template string
